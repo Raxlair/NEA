@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw
+from PIL import Image
 from paddleocr import PaddleOCR
 import screenshot
 
@@ -11,15 +11,16 @@ ocr = PaddleOCR( #initialising PaddleOCR
 def cropImage(imagePath, imageCrop): #return the IMAGEPATH of the cropped image
     image = Image.open(imagePath)
     croppedImage = image.crop(imageCrop)
-    croppedImage.save(f'images/cropped images/croppedImage{screenshot.pictureCouter()}.png')
+    croppedPath = f'images/cropped images/croppedImage{screenshot.pictureCouter()}.png'
+    croppedImage.save(croppedPath)
     croppedImage.show()
+    return croppedPath
 
 def OCR(imagePath):
     image = Image.open(imagePath)
     image.show()
+    imagePath = cropImage(imagePath, (100, 500, 1200, 700))
     sentence = ocr.predict(imagePath)
     print(sentence)
 
-#OCR('images/screenshot3.png')
-
-cropImage('images/screenshot3.png',(100, 500, 1200, 700))
+OCR('images/screenshot12.png')
