@@ -4,7 +4,9 @@ import win32gui
 def takeScreenshot(window):
     hwnd = win32gui.FindWindow(None, window) #finds the window handle for the given window name
     image = ImageGrab.grab(all_screens=True, window=hwnd) #all screen=True so that if it is on a different monitor it will still take the screenshot
-    image.save(f'images/screenshot{pictureCouter()}.png')
+    screenShotNum = pictureCouter() #gets the current screenshot number
+    image.save(f'images/screenshot{screenShotNum}.png')
+    return f'images/screenshot{screenShotNum}.png'
 
 def pictureCouter():
     with open("images/screenshotCounter.txt", "a+") as file:
