@@ -1,6 +1,6 @@
 from PIL import Image
 from paddleocr import PaddleOCR
-import screenshot
+import files
 
 ocr = PaddleOCR( #initialising PaddleOCR
     use_doc_orientation_classify=False,
@@ -11,7 +11,7 @@ ocr = PaddleOCR( #initialising PaddleOCR
 def cropImage(imagePath, imageCrop): #return the IMAGEPATH of the cropped image
     image = Image.open(imagePath)
     croppedImage = image.crop(imageCrop)
-    croppedPath = f'images/cropped images/croppedImage{screenshot.pictureCouter()}.png'
+    croppedPath = f'images/cropped images/croppedImage{files.fileCouter("images/cropped images/OCRimage.txt")}.png'
     croppedImage.save(croppedPath)
     return croppedPath
 

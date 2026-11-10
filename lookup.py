@@ -15,8 +15,13 @@ def lookup(word):
         "frequency": "",
     }
     result = jisho_api.word.Word.request(word)
+    
     wordInfoDict["word"] = result.data[0].japanese[0].word #string
     wordInfoDict["reading"] = result.data[0].japanese[0].reading #sting
     wordInfoDict["meaning"] = result.data[0].senses[0].english_definitions #list of strings
-    #wordInfoDict["frequency"] = result.data[0].jlpt[0] #sting
+    if result.data[0].jlpt != []: #checks if the word that is passed in has a jlpt level
+        wordInfoDict["frequency"] = result.data[0].jlpt[0] #sting
+    else:
+        wordInfoDict["frequency"] = ""
     return wordInfoDict
+
