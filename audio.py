@@ -18,5 +18,5 @@ def captureSentenceAudio(game):
     ) as capture:
         capture.start()
         time.sleep(10)  # Capture audio for 10 seconds
+        capture.stop()
 
-captureSentenceAudio("Steins;Gate")

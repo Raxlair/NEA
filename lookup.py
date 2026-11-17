@@ -1,4 +1,4 @@
-import jisho_api.tokenize, jisho_api.word
+import jisho_api.tokenize, requests
 
 def sentenceSplitter(sentence):
     sentenceList = []
@@ -14,14 +14,14 @@ def lookup(word):
         "meaning": "",
         "frequency": "",
     }
-    result = jisho_api.word.Word.request(word)
-    
-    wordInfoDict["word"] = result.data[0].japanese[0].word #string
-    wordInfoDict["reading"] = result.data[0].japanese[0].reading #sting
-    wordInfoDict["meaning"] = result.data[0].senses[0].english_definitions #list of strings
-    if result.data[0].jlpt != []: #checks if the word that is passed in has a jlpt level
-        wordInfoDict["frequency"] = result.data[0].jlpt[0] #sting
+    response = requests.get("https://jisho.org/api/v1/search/words", params={"keyword": word})
+    result = response.json() #convert the json into python dictionaries
+
+    wordInfoDict["word"] = result["data"][0]["japanese"][0]["word"] #string
+    wordInfoDict["reading"] = result["data"][0]["japanese"][0]["reading"] #sting
+    wordInfoDict["meaning"] = result["data"][0]["senses"][0]["english_definitions"] #list of strings
+    if result["data"][0]["jlpt"] != []: #checks if the word that is passed in has a jlpt level
+        wordInfoDict["frequency"] = result["data"][0]["jlpt"] #sting
     else:
         wordInfoDict["frequency"] = ""
     return wordInfoDict
-
