@@ -49,4 +49,4 @@ def monitorChange(window, doesPictureMove, movementLocation): #parameters of the
         
 
 
-monitorChange("Steins;gate", True, (250,500,1920,800))
+#monitorChange("Steins;gate", True, (250,500,1920,800))
