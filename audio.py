@@ -17,8 +17,7 @@ def captureSentenceAudio(game):
 
     ) as capture:
         capture.start()
-        time.sleep(10)  # Capture audio for 10 seconds
+        time.sleep(8)  # Capture audio for 8 seconds
         capture.stop()
 
     return f"audio/output{audioFileNum}.wav"
-

@@ -17,7 +17,7 @@ def lookup(word):
     response = requests.get("https://jisho.org/api/v1/search/words", params={"keyword": word})
     result = response.json() #convert the json into python dictionaries
 
-    wordInfoDict["word"] = result["data"][0]["japanese"][0]["word"] #string
+    wordInfoDict["word"] = word #string
     wordInfoDict["reading"] = result["data"][0]["japanese"][0]["reading"] #sting
     wordInfoDict["meaning"] = result["data"][0]["senses"][0]["english_definitions"] #list of strings
     if result["data"][0]["jlpt"] != []: #checks if the word that is passed in has a jlpt level

@@ -21,6 +21,7 @@ def getFields(noteType, location):
 def addCard(deck, noteType, lookupDict, audio, sentence, image):
     meanings = listIntoBullet(lookupDict["meaning"])
     image = imageIntoAnki(image)
+    audio = audioIntoAnki(audio)
     result = instance(action="addNote",
         note={
             "deckName":deck,
@@ -50,4 +51,9 @@ def imageIntoAnki(imagePath): #allows images put in the form so that they can wo
     ankiImage = f'<img src="{imageFile}">'
     return ankiImage
 
-
+def audioIntoAnki(audioPath): #allows images put in the form so that they can work with anki
+    with open(audioPath, "rb") as audio: #read as binary
+        audioData = base64.b64encode(audio.read()).decode("utf-8") #reads the image encodeds it as base64 and then converts it into a python string
+    audioFile = instance(action="storeMediaFile", filename=audioPath, data=audioData)
+    ankiAudio = f'[sound:{audioFile}]'
+    return ankiAudio
